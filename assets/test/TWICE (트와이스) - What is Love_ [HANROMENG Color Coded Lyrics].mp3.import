@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://caepyouvqn7lk"
+path="res://.godot/imported/TWICE (트와이스) - What is Love_ [HANROMENG Color Coded Lyrics].mp3-f810c9c5986a0fa17babac030c4fb2a4.mp3str"
+
+[deps]
+
+source_file="res://assets/test/TWICE (트와이스) - What is Love_ [HANROMENG Color Coded Lyrics].mp3"
+dest_files=["res://.godot/imported/TWICE (트와이스) - What is Love_ [HANROMENG Color Coded Lyrics].mp3-f810c9c5986a0fa17babac030c4fb2a4.mp3str"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

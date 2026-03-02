@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://cp3csu78i03yw"
+path="res://.godot/imported/ILLIT (아일릿) 'Not cute anymore' (Color Coded Lyrics).mp3-51106a92e53ad92e06007e6c088c447a.mp3str"
+
+[deps]
+
+source_file="res://assets/test/ILLIT (아일릿) 'Not cute anymore' (Color Coded Lyrics).mp3"
+dest_files=["res://.godot/imported/ILLIT (아일릿) 'Not cute anymore' (Color Coded Lyrics).mp3-51106a92e53ad92e06007e6c088c447a.mp3str"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

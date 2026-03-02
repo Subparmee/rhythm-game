@@ -1,0 +1,37 @@
+[gd_scene load_steps=8 format=3 uid="uid://y5ia1we3cfvc"]
+
+[ext_resource type="Script" uid="uid://dk4fjyv7an1l0" path="res://assets/scenes/game.gd" id="1_cb5na"]
+[ext_resource type="Texture2D" uid="uid://cfvm62os4m6bs" path="res://assets/images/backdrops/back1.png" id="2_j62u1"]
+[ext_resource type="Script" uid="uid://bf36vciy6rbur" path="res://assets/scenes/player.gd" id="3_5aext"]
+[ext_resource type="Script" uid="uid://t4uyp1c4q0j6" path="res://assets/scenes/music_player.gd" id="4_3w2km"]
+[ext_resource type="Script" uid="uid://h80muhb3bmub" path="res://assets/scenes/composer.gd" id="4_5aext"]
+[ext_resource type="AudioStream" uid="uid://cp3csu78i03yw" path="res://assets/test/ILLIT (아일릿) 'Not cute anymore' (Color Coded Lyrics).mp3" id="5_5aext"]
+[ext_resource type="Script" uid="uid://oaqd6ddr80uq" path="res://assets/scenes/judge.gd" id="7_3w2km"]
+
+[node name="Game" type="Node2D"]
+script = ExtResource("1_cb5na")
+
+[node name="Backdrop" type="Sprite2D" parent="."]
+position = Vector2(640.111, 363.25)
+scale = Vector2(0.334028, 0.334028)
+texture = ExtResource("2_j62u1")
+
+[node name="player" type="Node2D" parent="."]
+script = ExtResource("3_5aext")
+
+[node name="composer" type="Node2D" parent="."]
+script = ExtResource("4_5aext")
+
+[node name="music_player" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("5_5aext")
+autoplay = true
+script = ExtResource("4_3w2km")
+
+[node name="Notes" type="Node2D" parent="."]
+
+[node name="judge" type="Node2D" parent="."]
+script = ExtResource("7_3w2km")
+
+[connection signal="loadFinish" from="." to="player" method="_on_game_load_finish"]
+[connection signal="loadFinish" from="." to="music_player" method="_on_game_load_finish"]
+[connection signal="checksFinish" from="composer" to="." method="_on_composer_checks_finish"]

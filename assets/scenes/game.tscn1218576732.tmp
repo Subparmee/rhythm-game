@@ -1,0 +1,45 @@
+[gd_scene load_steps=10 format=3 uid="uid://y5ia1we3cfvc"]
+
+[ext_resource type="Script" uid="uid://dk4fjyv7an1l0" path="res://assets/scenes/game.gd" id="1_cb5na"]
+[ext_resource type="Texture2D" uid="uid://cfvm62os4m6bs" path="res://assets/images/backdrops/back1.png" id="2_j62u1"]
+[ext_resource type="Script" uid="uid://bf36vciy6rbur" path="res://assets/scenes/player.gd" id="3_5aext"]
+[ext_resource type="Script" uid="uid://t4uyp1c4q0j6" path="res://assets/scenes/music_player.gd" id="4_3w2km"]
+[ext_resource type="Script" uid="uid://h80muhb3bmub" path="res://assets/scenes/composer.gd" id="4_5aext"]
+[ext_resource type="AudioStream" uid="uid://cp3csu78i03yw" path="res://assets/test/ILLIT (아일릿) 'Not cute anymore' (Color Coded Lyrics).mp3" id="4_j62u1"]
+[ext_resource type="Texture2D" uid="uid://h3d2mrp1md4b" path="res://assets/images/cat.jpg" id="7_wfsp4"]
+[ext_resource type="Script" uid="uid://dbb3vv5kaxlke" path="res://assets/scenes/cat.gd" id="8_pw37s"]
+[ext_resource type="Script" uid="uid://chg5v3w36fbp4" path="res://assets/scenes/timer.gd" id="9_pw37s"]
+
+[node name="Game" type="Node2D"]
+script = ExtResource("1_cb5na")
+
+[node name="Backdrop" type="Sprite2D" parent="."]
+position = Vector2(-776.889, -437)
+scale = Vector2(0.59537, 0.59537)
+texture = ExtResource("2_j62u1")
+
+[node name="player" type="Node2D" parent="."]
+script = ExtResource("3_5aext")
+
+[node name="composer" type="Node2D" parent="."]
+script = ExtResource("4_5aext")
+
+[node name="display" type="Node2D" parent="."]
+
+[node name="music_player" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("4_j62u1")
+autoplay = true
+script = ExtResource("4_3w2km")
+
+[node name="Cat" type="Sprite2D" parent="."]
+position = Vector2(652, 369)
+scale = Vector2(0.367925, 0.367925)
+texture = ExtResource("7_wfsp4")
+script = ExtResource("8_pw37s")
+
+[node name="Timer" type="Timer" parent="Cat"]
+wait_time = 0.25
+script = ExtResource("9_pw37s")
+
+[connection signal="button1" from="player" to="Cat" method="_on_player_button_1"]
+[connection signal="timestart" from="Cat" to="Cat/Timer" method="_on_cat_timestart"]
