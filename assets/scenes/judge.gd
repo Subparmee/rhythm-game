@@ -15,14 +15,14 @@ func getJudgement(beat):
 	return 4	
 
 func pressed(button):
-	var beat = get_parent().notes[button][get_parent().activeBeats[button]].timing
+	var beat = get_parent().notes[button][get_parent().activeBeats[button]].beat
 	var judgement: int = getJudgement(beat)
 	if get_parent().getActiveBeatType(button) == 2:
-		#add error check
+		push_error("pressing on a hold end (somehow)")
 		pass
 	if judgement != 4:
 		get_parent().activeBeats[button] += 1
-		if get_parent().getActiveBeatType == 0:
+		if get_parent().getActiveBeatType(button) == 0:
 			get_parent().deleteBall(button)
 		if judgement == 0:
 			print("perfect!")
@@ -34,7 +34,7 @@ func pressed(button):
 			print("bad!")
 
 func released(button):
-	var beat = get_parent().notes[button][get_parent().activeBeats[button]].timing
+	var beat = get_parent().notes[button][get_parent().activeBeats[button]].beat
 	var judgement: int = getJudgement(beat)
 	if get_parent().getActiveBeatType(button) != 2:
 		#add error check

@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=3 uid="uid://y5ia1we3cfvc"]
+[gd_scene load_steps=9 format=3 uid="uid://y5ia1we3cfvc"]
 
 [ext_resource type="Script" uid="uid://dk4fjyv7an1l0" path="res://assets/scenes/game.gd" id="1_cb5na"]
 [ext_resource type="Texture2D" uid="uid://cfvm62os4m6bs" path="res://assets/images/backdrops/back1.png" id="2_j62u1"]
@@ -7,6 +7,7 @@
 [ext_resource type="Script" uid="uid://h80muhb3bmub" path="res://assets/scenes/composer.gd" id="4_5aext"]
 [ext_resource type="AudioStream" uid="uid://cp3csu78i03yw" path="res://assets/test/ILLIT (아일릿) 'Not cute anymore' (Color Coded Lyrics).mp3" id="5_5aext"]
 [ext_resource type="Script" uid="uid://oaqd6ddr80uq" path="res://assets/scenes/judge.gd" id="7_3w2km"]
+[ext_resource type="PackedScene" uid="uid://2d1f1o7god36" path="res://assets/scenes/balls.tscn" id="8_wfsp4"]
 
 [node name="Game" type="Node2D"]
 script = ExtResource("1_cb5na")
@@ -31,6 +32,12 @@ script = ExtResource("4_3w2km")
 
 [node name="judge" type="Node2D" parent="."]
 script = ExtResource("7_3w2km")
+
+[node name="Holds" type="Node2D" parent="."]
+
+[node name="Balls" parent="." instance=ExtResource("8_wfsp4")]
+position = Vector2(439.685, 610.485)
+scale = Vector2(0.205, 0.205)
 
 [connection signal="loadFinish" from="." to="player" method="_on_game_load_finish"]
 [connection signal="loadFinish" from="." to="music_player" method="_on_game_load_finish"]

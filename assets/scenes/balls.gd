@@ -1,10 +1,10 @@
 extends Node2D
 var speed:int = 1500
+var down:bool = true
 
 func _process(delta):
-	position += speed*delta*Vector2.DOWN
-	if Input.is_action_just_pressed("button1"):
-		animation()
+	if down:
+		position += speed*delta*Vector2.DOWN
 
 func animation():
 	$AnimatedSprite2D.frame = 1

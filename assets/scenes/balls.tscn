@@ -22,8 +22,6 @@ animations = [{
 script = ExtResource("1_ru48t")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
-position = Vector2(639.778, 352.25)
-scale = Vector2(0.33125, 0.33125)
 sprite_frames = SubResource("SpriteFrames_q2ish")
 
 [node name="Timer" type="Timer" parent="."]
