@@ -1,8 +1,9 @@
+#balls.gd
 extends Node2D
 var speed:int = 1500
 var down:bool = true
 
-func _process(delta):
+func _physics_process(delta):
 	if down:
 		position += speed*delta*Vector2.DOWN
 

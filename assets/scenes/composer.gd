@@ -1,3 +1,4 @@
+#composer.gd
 extends Node2D
 var noteBeats = [[1,10,1000],
 [1.5,3.5,5.5,7.5,9.5,11.5,13.5,15.5,17.5,19.5,21.5,23.5,25.5,27.5,29.5,31.5,1000],
@@ -20,4 +21,4 @@ func _ready() -> void:
 	for i in range(7):
 		assert(noteBeats[i].size() == noteType[i].size(), "problem writing, lane: " + str(i))
 	checksFinish.emit()
-		
+	

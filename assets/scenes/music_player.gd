@@ -1,3 +1,4 @@
+#music_player.gd
 extends AudioStreamPlayer
 var currentTime :float = 0.0
 var currentBeat :float = 0.0

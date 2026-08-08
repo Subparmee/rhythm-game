@@ -1,3 +1,4 @@
+#game.gd
 extends Node2D
 var bpm :int = 170
 var bps :float = bpm/60.0
@@ -5,7 +6,8 @@ var spb :float = 60.0/bpm
 var balls_scene: PackedScene = preload("res://assets/scenes/balls.tscn")
 var hold_scene: PackedScene = preload("res://assets/scenes/hold.tscn")
 var speed:int = 1500
-var basePosition = Vector2(439.685, 610.485)
+var basePosition = Vector2(0, 0)
+var xDif = 0
 var notes = [[],
 [],
 [],
@@ -17,6 +19,7 @@ var currentNotes = [-1,-1,-1,-1,-1,-1,-1]
 var currentHolds = [-1,-1,-1,-1,-1,-1,-1]
 var summonedBalls = [[],[],[],[],[],[],[]]
 var summonedHolds = [[],[],[],[],[],[],[]]
+var targets = []
 var activeBeats = [0,0,0,0,0,0,0]
 var holdStarted = [false,false,false,false,false,false,false]
 signal loadFinish
@@ -36,6 +39,10 @@ func _on_composer_checks_finish() -> void:
 			notes[i].append(note)
 	for i in range(7):
 		currentNotes[i] = 0
+	var screen_center = get_viewport().get_visible_rect().size / 2
+	xDif = 200
+	basePosition = screen_center + Vector2(-1.5*xDif, 200)
+	$board_control.createLayout()
 	loadFinish.emit()
 	start = true
 	
@@ -43,6 +50,10 @@ func _process(delta: float) -> void:
 	if start:
 		$judge.checkPassed()
 		for i in range(7):
+			if holdStarted[i] == true:
+				targets[i].setHoldAnimation()
+			if i < 4 && (!holdStarted[i] || (notes[i][currentNotes[i]].type == 2 && getTime() > notes[i][currentNotes[i]].beat*spb)):		#i less than 4 only temp for now
+				targets[i].setBaseAnimation()
 			if notes[i][currentNotes[i]].beat*spb-getTime() < 0.5:
 				if notes[i][currentNotes[i]].type == 0:
 					playNote(i)
@@ -55,14 +66,16 @@ func _process(delta: float) -> void:
 func playNote(laneNum):
 	var note = balls_scene.instantiate()
 	var yChange = (notes[laneNum][currentNotes[laneNum]].beat*spb - getTime()) * speed
-	var xChange = laneNum*136
+	var xChange = laneNum*xDif
 	note.position = basePosition + Vector2(xChange, yChange*-1)
 	note.scale = Vector2(0.205, 0.205)
-	$Notes.add_child(note)
+	$board_control/Taps.add_child(note)
 	summonedBalls[laneNum].append(note)
 	currentNotes[laneNum] += 1
 
-func deleteBall(laneNum):
+func deleteBall(laneNum, isPassed):
+	#if(isPassed):
+	#	await get_tree().create_timer(1.0).timeout
 	if summonedBalls[laneNum].size() > 0:
 		var deletedBall = summonedBalls[laneNum].pop_front()
 		if(is_instance_valid(deletedBall)):
@@ -71,22 +84,33 @@ func deleteBall(laneNum):
 func playHold(laneNum):
 	var note1 = balls_scene.instantiate()
 	var y1: float = (notes[laneNum][currentNotes[laneNum]].beat*spb - getTime()) * speed
-	var xChange: float = laneNum*136
+	var xChange: float = laneNum*xDif
 	currentNotes[laneNum] += 1
 	var y2:float = (notes[laneNum][currentNotes[laneNum]].beat*spb - getTime()) * speed
 	currentNotes[laneNum] += 1
 	var hold = hold_scene.instantiate()
+	hold.lane = laneNum
 	hold.makeNote(y1, y2)
 	hold.position = basePosition + Vector2(xChange, (y1+y2)*-1/2)
-	$Holds.add_child(hold)
+	$board_control/Holds.add_child(hold)
 	summonedHolds[laneNum].append(hold)
 	
 
-func deleteHold(laneNum):
+func deleteHold(laneNum, isPassed):
+	#if(isPassed):
+	#	await get_tree().create_timer(1.0).timeout
 	if summonedHolds[laneNum].size() > 0:
 		var deletedHold = summonedHolds[laneNum].pop_front()
 		if(is_instance_valid(deletedHold)):
 			deletedHold.queue_free()
+
+
+func missHold(lane: int) -> void:
+	if summonedHolds[lane].is_empty():
+		return
+	
+	var missedHold = summonedHolds[lane].pop_front()
+	missedHold.miss()
 
 func getTime() -> float:
 	return $music_player.currentTime

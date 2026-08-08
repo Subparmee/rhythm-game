@@ -1,3 +1,4 @@
+#player.gd
 extends Node2D
 var buttons = ["button1", "button2", "button3", "button4", "up1", "up2", "up3"]
 var start:bool = false
